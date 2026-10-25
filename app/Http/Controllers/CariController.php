@@ -30,6 +30,10 @@ class CariController extends Controller
         ->orWhere('kelas.tanggal','like',"%".$cari."%")
         ->orWhere('students.name', 'like', "%".$cari."%")
         ->paginate(10);
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json($kelas);
+        }
+
         return view('cari',compact('kelas','user'));
     }      
 }
