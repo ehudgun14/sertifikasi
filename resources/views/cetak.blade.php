@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-
+        @viteReactRefresh
+        @vite('resources/js/app.jsx')
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -13,7 +14,7 @@
 
         <!-- Styles -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
         <style>
@@ -185,45 +186,13 @@
         </div>
         @endif
         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0 shadow-sm rounded bg-gray-100 divide-gray-200">
-					<div class="card-header">
-                    <form style="margin-left: 16px;" action="{{ route('actioncarikelasdaricetak') }}" method="GET">
-                        <input style="width:93.5%" type="text" name="cari" placeholder="Cari Kelas berdasarkan nama, periode, tanggal dan pengajar...">
-                        <input style="width: 60px; height: 30px; border-radius: 3px; background: #fde047; border:none;" type="submit" value="Cari">
-                    </form>
-					</div> 
-                        <div class="card-body">
-                            <table class="table border divide-y bg-light divide-gray-100" id="tabelcetak">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nama Kelas</th>
-                                        <th scope="col">Periode</th>
-                                        <th scope="col">Tanggal</th>
-                                        <th scope="col">Pengajar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($kelas as $kls)
-                                    <tr class="tabelcetak">
-                                        <td>{{ $kls->id }}</td>
-                                        <td>{{ $kls->kelas }}</a></td>
-                                        <td>{{ $kls->periode }}</td>
-                                        <td>{{ $kls->tanggal }}</td>
-                                        <td>{{ $kls->pengajar }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            {{ $kelas->links('pagination::bootstrap-5') }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
+        
+        <div 
+        id="halamancetak" 
+        data-action="{{ route('actioncarikelasdaricetak') }}" 
+        data-awal="{{ json_encode($kelas) }}"
+        >
+   
         </div>
 		<div id="cetakwindow" style="display:none;position: fixed; top: 0; left: 0; width: 100vw; height: 1000px; background-color: rgba(0, 0, 0, 0.5); z-index: 99999; justify-content: center; align-items: center; overflow: auto;">
 			<div class="card card-body shadow-lg" style="width: 100%; max-width: 500px; margin: 20px;">
