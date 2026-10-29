@@ -43,6 +43,9 @@ class NilaiController extends Controller
         ->orWhere('kelas.tanggal', 'like', "%".$cari."%")
         ->orWhere('kelas.pengajar','like',"%".$cari."%")
         ->paginate(5);
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json($kelas);
+        }
         return view('nilai', compact('kelas','user'));
     }     
 }
