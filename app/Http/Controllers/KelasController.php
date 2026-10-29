@@ -85,6 +85,9 @@ class KelasController extends Controller
         ->orWhere('kelas.pengajar','like',"%".$cari."%")
         ->paginate(5);
         $dosen = Dosen::all();
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json($kelas);
+        }
         return view('kelas', compact('kelas', 'dosen','user'));
     }      
 
